@@ -1,3 +1,3 @@
-###SAMSUNG FEEDS
-# Specialy for samsung corporation
-# developed by GEEKS
+#SAMSUNG FEEDS
+### Specialy for samsung corporation
+### developed by GEEKS
