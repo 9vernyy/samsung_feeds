@@ -1,5 +1,8 @@
 package kz.alisher.samsungnews.rssmanager;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 import kz.alisher.samsungnews.model.Comment;
@@ -7,7 +10,7 @@ import kz.alisher.samsungnews.model.Comment;
 /**
  * Created by Alisher Kozhabay on 4/22/2016.
  */
-public class RssItem {
+public class RssItem implements Serializable{
     private String title;
     private String description;
     private String content;

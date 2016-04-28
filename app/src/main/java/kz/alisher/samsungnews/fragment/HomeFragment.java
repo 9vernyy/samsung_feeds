@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
+import java.util.List;
+
 import kz.alisher.samsungnews.R;
+import kz.alisher.samsungnews.rssmanager.RssItem;
 
 /**
  * Created by Alisher Kozhabay on 4/27/2016.
@@ -27,9 +27,6 @@ public class HomeFragment extends Fragment {
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
-    }
-
-    public HomeFragment() {
     }
 
     @Override
@@ -57,13 +54,13 @@ public class HomeFragment extends Fragment {
             public Fragment getItem(int position) {
                 switch (position % 4) {
                     case 0:
-                        return CorporateFragment.newInstance();
+                        return new CorporateFragment();
                     case 1:
-                        return ProductsFragment.newInstance();
+                        return new ProductsFragment();
                     case 2:
-                        return PressResourcesFragment.newInstance();
+                        return new PressResourcesFragment();
                     case 3:
-                        return ViewsFragment.newInstance();
+                        return new ViewsFragment();
                     default:
                         return null;
                 }
@@ -118,7 +115,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        mViewPager.getViewPager().setOffscreenPageLimit(4);
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getChildCount());
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
 
 //        View logo = view.findViewById(R.id.logo_white);
@@ -135,7 +132,6 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Toast.makeText(getActivity(), "FAVOURITE", Toast.LENGTH_SHORT).show();
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }

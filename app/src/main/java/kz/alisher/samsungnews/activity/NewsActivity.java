@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -28,6 +29,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import kz.alisher.samsungnews.R;
+import kz.alisher.samsungnews.rssmanager.RssItem;
+import kz.alisher.samsungnews.utils.Favourite;
 
 /**
  * Created by Alisher Kozhabay on 4/23/2016.
@@ -35,9 +38,7 @@ import kz.alisher.samsungnews.R;
 public class NewsActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private TextView contentTxt, numberOfCommentsTxt;
-    private String content;
-    private String commentURL;
-    private String numberOfComments;
+    private RssItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +52,15 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
         ImageButton comment = (ImageButton) findViewById(R.id.comment);
         ImageButton favourite = (ImageButton) findViewById(R.id.favourite);
 
-        Spanned spanned = Html.fromHtml(content, this, null);
+        Spanned spanned = Html.fromHtml(item.getContent(), this, null);
         contentTxt.setText(spanned);
-        numberOfCommentsTxt.setText(numberOfComments);
+        numberOfCommentsTxt.setText(item.getNumberOfComments());
 
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewsActivity.this, "Comment", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewsActivity.this, CommentActivity.class).putExtra("url", commentURL));
+                startActivity(new Intent(NewsActivity.this, CommentActivity.class).putExtra("url", item.getCommentUrl()));
             }
         });
 
@@ -73,9 +74,8 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
 
     private void getExtras() {
         Intent i = getIntent();
-        content = i.getStringExtra("content");
-        commentURL = i.getStringExtra("commentUrl");
-        numberOfComments = i.getStringExtra("numberOfComments");
+        item = (RssItem) i.getSerializableExtra("item");
+        Log.d("ITEM", item.getContent());
     }
 
     private void initToolbar() {

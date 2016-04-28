@@ -2,6 +2,7 @@ package kz.alisher.samsungnews.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("Hello", "count");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -58,9 +60,7 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
             public void onItemClick(View view, int position) {
                 RssItem clickedItem = mContentItems.get(position - 1);
                 Intent i = new Intent(getActivity(), NewsActivity.class);
-                i.putExtra("content", clickedItem.getContent());
-                i.putExtra("commentUrl", clickedItem.getCommentUrl());
-                i.putExtra("numberOfComments", clickedItem.getNumberOfComments());
+                i.putExtra("item", clickedItem);
                 startActivity(i);
             }
         }));

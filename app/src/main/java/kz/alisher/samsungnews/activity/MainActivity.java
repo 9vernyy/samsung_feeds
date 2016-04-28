@@ -5,28 +5,20 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.header.HeaderDesign;
 
 import kz.alisher.samsungnews.R;
-import kz.alisher.samsungnews.fragment.CorporateFragment;
 import kz.alisher.samsungnews.fragment.FavouriteFragment;
 import kz.alisher.samsungnews.fragment.HomeFragment;
-import kz.alisher.samsungnews.fragment.PressResourcesFragment;
-import kz.alisher.samsungnews.fragment.ProductsFragment;
-import kz.alisher.samsungnews.fragment.ViewsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private MaterialViewPager mViewPager;
@@ -43,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
 
 //        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 //        toolbar = mViewPager.getToolbar();
@@ -156,14 +151,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
 
         if (id == R.id.favourite) {
-            fragment = FavouriteFragment.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new FavouriteFragment()).commit();
         } else if (id == R.id.homeF) {
-            fragment = HomeFragment.newInstance();
+//            fragment = new HomeFragment().newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
         }
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
@@ -177,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
