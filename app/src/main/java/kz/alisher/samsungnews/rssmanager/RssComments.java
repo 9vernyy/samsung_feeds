@@ -45,5 +45,4 @@ public class RssComments extends AsyncTask<String, Integer, List<Comment>> {
         }
         return comments;
     }
-
 }
