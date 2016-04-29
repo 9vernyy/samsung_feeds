@@ -1,10 +1,13 @@
 package kz.alisher.samsungnews.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +15,13 @@ import android.view.ViewGroup;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 
-import java.util.List;
-
 import kz.alisher.samsungnews.R;
-import kz.alisher.samsungnews.rssmanager.RssItem;
 
 /**
  * Created by Alisher Kozhabay on 4/27/2016.
  */
 public class HomeFragment extends Fragment {
+    private static final int PAGE_COUNT = 4;
     private MaterialViewPager mViewPager;
     private Toolbar toolbar;
 
@@ -36,7 +37,6 @@ public class HomeFragment extends Fragment {
         toolbar = mViewPager.getToolbar();
         toolbar.setVisibility(View.INVISIBLE);
 //        toolbar.setEnabled(false);
-
 //        if (toolbar != null) {
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //            final ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
@@ -49,18 +49,19 @@ public class HomeFragment extends Fragment {
 //            }
 //        }
 
+
         mViewPager.getViewPager().setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 switch (position % 4) {
                     case 0:
-                        return new CorporateFragment();
+                        return CorporateFragment.newInstance();
                     case 1:
-                        return new ProductsFragment();
+                        return ProductsFragment.newInstance();
                     case 2:
-                        return new PressResourcesFragment();
+                        return PressResourcesFragment.newInstance();
                     case 3:
-                        return new ViewsFragment();
+                        return ViewsFragment.newInstance();
                     default:
                         return null;
                 }
@@ -115,8 +116,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getChildCount());
+        mViewPager.getViewPager().setOffscreenPageLimit(PAGE_COUNT);
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
+//        new setAdapterTask().execute();
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+//            }
+//        }, 2000);
 
 //        View logo = view.findViewById(R.id.logo_white);
 //        if (logo != null)
@@ -133,5 +143,17 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    private class setAdapterTask extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            int childcount = mViewPager.getViewPager().getAdapter().getCount();
+            mViewPager.getViewPager().setOffscreenPageLimit(childcount);
+        }
     }
 }

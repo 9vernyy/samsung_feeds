@@ -67,6 +67,7 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Favourite.faList.add(item);
                 Toast.makeText(NewsActivity.this, "Favourite", Toast.LENGTH_SHORT).show();
             }
         });

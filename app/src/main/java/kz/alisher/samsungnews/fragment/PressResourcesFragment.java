@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import kz.alisher.samsungnews.utils.RecyclerItemClickListener;
 /**
  * Created by Alisher Kozhabay on 4/23/2016.
  */
-public class PressResourcesFragment extends Fragment implements OnRssLoadListener{
+public class PressResourcesFragment extends Fragment implements OnRssLoadListener {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
@@ -40,12 +41,8 @@ public class PressResourcesFragment extends Fragment implements OnRssLoadListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        Log.d("PRESS", "ACTIVITY");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -55,15 +52,17 @@ public class PressResourcesFragment extends Fragment implements OnRssLoadListene
             public void onItemClick(View view, int position) {
                 RssItem clickedItem = mContentItems.get(position - 1);
                 Intent i = new Intent(getActivity(), NewsActivity.class);
-                i.putExtra("content", clickedItem.getContent());
-                i.putExtra("commentUrl", clickedItem.getCommentUrl());
-                i.putExtra("numberOfComments", clickedItem.getNumberOfComments());
+                i.putExtra("item", clickedItem);
                 startActivity(i);
             }
         }));
         loadFeeds();
+        return view;
+    }
 
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void loadFeeds() {
@@ -83,6 +82,8 @@ public class PressResourcesFragment extends Fragment implements OnRssLoadListene
         mAdapter = new RecyclerViewMaterialAdapter(new NewsRecyclerViewAdapter(mContentItems, getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
     }
 
     @Override

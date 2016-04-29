@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, HomeFragment.newInstance()).commit();
 
 //        mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 //        toolbar = mViewPager.getToolbar();
@@ -154,9 +154,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, new FavouriteFragment()).commit();
         } else if (id == R.id.homeF) {
-//            fragment = new HomeFragment().newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, HomeFragment.newInstance()).commit();
         }
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
 

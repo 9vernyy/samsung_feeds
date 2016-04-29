@@ -27,6 +27,7 @@ import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.rssmanager.OnRssLoadListener;
 import kz.alisher.samsungnews.rssmanager.RssItem;
 import kz.alisher.samsungnews.rssmanager.RssReader;
+import kz.alisher.samsungnews.utils.EndlessRecyclerOnScrollListener;
 import kz.alisher.samsungnews.utils.RecyclerItemClickListener;
 
 /**
@@ -42,6 +43,9 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
         return new CorporateFragment();
     }
 
+    public CorporateFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recyclerview, container, false);
@@ -50,11 +54,18 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("Hello", "count");
+        Log.d("CORPORATE", "ACTIVITY");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+
+            @Override
+            public void onLoadMore(int current_page) {
+
+            }
+        });
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -66,8 +77,6 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
         }));
 
         loadFeeds();
-
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     private void loadFeeds() {
@@ -86,6 +95,8 @@ public class CorporateFragment extends Fragment implements OnRssLoadListener {
         }
         mAdapter = new RecyclerViewMaterialAdapter(new NewsRecyclerViewAdapter(mContentItems, getActivity()));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     @Override

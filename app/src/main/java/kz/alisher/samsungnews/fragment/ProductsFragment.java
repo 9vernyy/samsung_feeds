@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.rssmanager.OnRssLoadListener;
 import kz.alisher.samsungnews.rssmanager.RssItem;
 import kz.alisher.samsungnews.rssmanager.RssReader;
+import kz.alisher.samsungnews.utils.Favourite;
 import kz.alisher.samsungnews.utils.RecyclerItemClickListener;
 
 /**
@@ -38,6 +40,7 @@ public class ProductsFragment extends Fragment implements OnRssLoadListener{
         return new ProductsFragment();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recyclerview, container, false);
@@ -46,6 +49,7 @@ public class ProductsFragment extends Fragment implements OnRssLoadListener{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("PRODUCTS", "ACTIVITY");
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -55,15 +59,12 @@ public class ProductsFragment extends Fragment implements OnRssLoadListener{
             public void onItemClick(View view, int position) {
                 RssItem clickedItem = mContentItems.get(position - 1);
                 Intent i = new Intent(getActivity(), NewsActivity.class);
-                i.putExtra("content", clickedItem.getContent());
-                i.putExtra("commentUrl", clickedItem.getCommentUrl());
-                i.putExtra("numberOfComments", clickedItem.getNumberOfComments());
+                i.putExtra("item", clickedItem);
                 startActivity(i);
             }
         }));
         loadFeeds();
 
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     private void loadFeeds() {
@@ -83,6 +84,7 @@ public class ProductsFragment extends Fragment implements OnRssLoadListener{
         mAdapter = new RecyclerViewMaterialAdapter(new NewsRecyclerViewAdapter(mContentItems, getActivity()));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     @Override
