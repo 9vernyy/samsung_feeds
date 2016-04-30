@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/author_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:textColor="#000"
+                android:text="Alisher Kozhabay"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/content_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/author_comment"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="How are you?"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/createdAt_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/content_comment"
+                android:layout_alignParentRight="true"
+                android:paddingTop="22dp"
+                android:textColor="#000"
+                android:text="16:80"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
