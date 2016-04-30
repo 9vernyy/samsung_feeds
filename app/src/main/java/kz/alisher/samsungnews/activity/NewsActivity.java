@@ -45,6 +45,7 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
         initToolbar();
         getExtras();
 
+
         contentTxt = (TextView) findViewById(R.id.contentNews);
         numberOfCommentsTxt = (TextView) findViewById(R.id.numberOfComments);
         ImageButton comment = (ImageButton) findViewById(R.id.comment);

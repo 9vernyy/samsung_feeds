@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -46,7 +47,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     private RecyclerView mRecyclerView;
     private List<RssItem> items = new ArrayList<>();
     private List<RssItem> items2 = new ArrayList<>();
-    private List<RssItem> filteredModelList;
+    private List<RssItem> filteredModelList = new ArrayList<>();
+    private TextView mNoReminderView;
+    private TextView mNoReminderView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +57,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         setContentView(R.layout.activity_search);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mNoReminderView = (TextView) findViewById(R.id.no_reminder_text);
+        mNoReminderView1 = (TextView) findViewById(R.id.no_reminder_text1);
         setSupportActionBar(toolbar);
         setTitle("Samsung news");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.search_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -76,6 +80,11 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             }
         }));
         setItems();
+
+        if (filteredModelList.isEmpty()){
+            mNoReminderView.setVisibility(View.VISIBLE);
+            mNoReminderView1.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -85,7 +94,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
         MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setQueryHint("search");
+        searchView.setQueryHint("Search");
         searchView.setFocusable(true);
         searchView.setIconified(false);
         searchView.setOnQueryTextListener(this);
@@ -182,6 +191,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         final List<RssItem> filteredModelList = filter(items, newText);
         mAdapter.animateTo(filteredModelList);
         mRecyclerView.scrollToPosition(0);
+        if (filteredModelList.isEmpty()){
+            mNoReminderView.setVisibility(View.VISIBLE);
+            mNoReminderView1.setVisibility(View.VISIBLE);
+        } else {
+            mNoReminderView.setVisibility(View.INVISIBLE);
+            mNoReminderView1.setVisibility(View.INVISIBLE);
+        }
         return true;
     }
 }
