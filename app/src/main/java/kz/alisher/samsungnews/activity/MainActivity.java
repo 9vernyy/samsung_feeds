@@ -17,14 +17,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
@@ -33,7 +31,7 @@ import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.fragment.CategoryFragment;
 import kz.alisher.samsungnews.fragment.FavouriteFragment;
 import kz.alisher.samsungnews.fragment.HomeFragment;
-import kz.alisher.samsungnews.utils.SendPush;
+import kz.alisher.samsungnews.utils.GlobalItems;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
@@ -134,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                Log.d("TEST FALSE", testStrings.size()+"");
 //                testStrings.add("THIRD");
                 try {
-                    Elements items = new SendPush().execute().get();
+                    Elements items = new GlobalItems().execute().get();
                     SharedPreferences prefs = getPreferences(MODE_PRIVATE);
                     int old = prefs.getInt("news_count", 0);
                     if (old == 0) {

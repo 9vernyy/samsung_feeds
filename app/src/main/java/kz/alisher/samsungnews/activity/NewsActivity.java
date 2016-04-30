@@ -8,11 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,10 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import kz.alisher.samsungnews.R;
@@ -38,7 +36,7 @@ import kz.alisher.samsungnews.utils.Favourite;
 public class NewsActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private TextView contentTxt, numberOfCommentsTxt;
-    private RssItem item;
+    private RssItem rssItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,31 +50,31 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
         ImageButton comment = (ImageButton) findViewById(R.id.comment);
         final ImageButton favourite = (ImageButton) findViewById(R.id.favourite);
 
-        Spanned spanned = Html.fromHtml(item.getContent(), this, null);
+        Spanned spanned = Html.fromHtml(rssItem.getContent(), this, null);
         contentTxt.setText(spanned);
-        numberOfCommentsTxt.setText(item.getNumberOfComments());
+        numberOfCommentsTxt.setText(rssItem.getNumberOfComments());
 
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NewsActivity.this, "Comment", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(NewsActivity.this, CommentActivity.class).putExtra("url", item.getCommentUrl()));
+                startActivity(new Intent(NewsActivity.this, CommentActivity.class).putExtra("url", rssItem.getCommentUrl()));
             }
         });
 
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(item.isFavourite()==false){
-                    item.setIsFavourite(true);
-                    Favourite.faList.add(item);
+                if(rssItem.isFavourite()==false){
+                    rssItem.setIsFavourite(true);
+                    Favourite.faList.add(rssItem);
                     favourite.setImageDrawable(getResources().getDrawable(R.drawable.star_notfilled));
                     Toast.makeText(NewsActivity.this, "Favourite", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    item.setIsFavourite(false);
+                    rssItem.setIsFavourite(false);
                     favourite.setImageDrawable(getResources().getDrawable(R.drawable.star_filled));
-                    Favourite.faList.remove(item);
+                    Favourite.faList.remove(rssItem);
                     Toast.makeText(NewsActivity.this, "deleted from favourite", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -85,8 +83,8 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
 
     private void getExtras() {
         Intent i = getIntent();
-        item = (RssItem) i.getSerializableExtra("item");
-        Log.d("ITEM", item.getContent());
+        rssItem = (RssItem) i.getSerializableExtra("item");
+        Log.d("ITEM", rssItem.getContent());
     }
 
     private void initToolbar() {
@@ -123,10 +121,11 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
             Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBody = "Here is the share content body";
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+            SpannedString spanned = new SpannedString(Html.fromHtml(rssItem.getContent()));
+            String shareBody = String.valueOf(spanned);
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, rssItem.getTitle());
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            startActivity(Intent.createChooser(sharingIntent, "Share"));
         } else if (id == android.R.id.home) {
             onBackPressed();
         }

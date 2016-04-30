@@ -49,6 +49,57 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         Picasso.with(holder.thumbnail.getContext()).load(item.getImg()).into(holder.thumbnail);
     }
 
+    public void animateTo(List<RssItem> models) {
+        applyAndAnimateRemovals(models);
+        applyAndAnimateAdditions(models);
+        applyAndAnimateMovedItems(models);
+    }
+
+    private void applyAndAnimateRemovals(List<RssItem> newModels) {
+        for (int i = contents.size() - 1; i >= 0; i--) {
+            final RssItem model = contents.get(i);
+            if (!newModels.contains(model)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    private void applyAndAnimateAdditions(List<RssItem> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final RssItem model = newModels.get(i);
+            if (!contents.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<RssItem> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final RssItem model = newModels.get(toPosition);
+            final int fromPosition = contents.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public RssItem removeItem(int position) {
+        final RssItem model = contents.remove(position);
+        notifyItemRemoved(position);
+        return model;
+    }
+
+    public void addItem(int position, RssItem model) {
+        contents.add(position, model);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        final RssItem model = contents.remove(fromPosition);
+        contents.add(toPosition, model);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView title;
