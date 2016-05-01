@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -49,6 +50,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean themeName = pref.getBoolean("chb1",false);
+        if (themeName) {
+            super.setTheme(R.style.AppThemeTwo);
+        } else {
+            super.setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.activity_main);
         setTitle("Samsung news");
 
@@ -99,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.logout){
             sessionManager.setLogin(false);
             startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.settings){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, new SetFragment()).commit();
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

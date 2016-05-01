@@ -43,6 +43,8 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text="Created date"
+                android:textAlignment="textEnd"
+                android:gravity="end"
                 android:textSize="12sp" />
 
             <TextView

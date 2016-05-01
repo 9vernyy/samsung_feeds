@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kz.alisher.samsungnews.R;
+import kz.alisher.samsungnews.activity.SortActivity;
 import kz.alisher.samsungnews.activity.SubCategoryActivity;
 import kz.alisher.samsungnews.adapter.CategoryAdapter;
 import kz.alisher.samsungnews.utils.RecyclerItemClickListener;
@@ -55,9 +56,16 @@ public class CategoryFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent i = new Intent(getActivity(), SubCategoryActivity.class);
-                i.putExtra("id", position);
-                startActivity(i);
+                if (catMap.get(position-1).get(0).equals("All")) {
+                    Intent i = new Intent(getActivity(), SortActivity.class);
+                    i.putExtra("title", catMap.get(position-1).get(0));
+                    Log.d("ALL:123", catMap.get(position).get(0));
+                    startActivity(i);
+                } else {
+                    Intent i = new Intent(getActivity(), SubCategoryActivity.class);
+                    i.putExtra("id", position);
+                    startActivity(i);
+                }
             }
         }));
     }

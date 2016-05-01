@@ -51,7 +51,8 @@ public class SubCategoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent i = new Intent(SubCategoryActivity.this, SortActivity.class);
-                i.putExtra("title", catMap.get(position-1).get(0));
+                Log.d("POSITION", catMap.get(position).get(0));
+                i.putExtra("title", catMap.get(position).get(0));
                 Log.d("TESTOVICH", catMap.get(position).get(0));
                 startActivity(i);
             }
@@ -94,7 +95,6 @@ public class SubCategoryActivity extends AppCompatActivity {
             case 5:
                 catMap.add(Arrays.asList("Views", ""));
                 break;
-
         }
     }
 

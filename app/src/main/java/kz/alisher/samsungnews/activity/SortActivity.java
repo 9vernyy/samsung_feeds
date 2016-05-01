@@ -91,6 +91,9 @@ public class SortActivity extends AppCompatActivity implements OnRssLoadListener
 
         switch (title) {
 
+            case "All":
+                str = "http://news.samsung.com/global/feed";
+                break;
             case "People and culture":
                 str = "http://news.samsung.com/global/category/corporate/people-culture/feed";
                 break;

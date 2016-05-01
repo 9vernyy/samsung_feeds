@@ -6,4 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="actionSearch">Search</string>
+
+    <string name="checkbox1_summary">ON/OFF</string>
+    <string name="checkbox1_title">DarkTheme</string>
 </resources>

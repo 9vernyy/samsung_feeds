@@ -21,6 +21,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -160,6 +161,16 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         String description = element.select(DESCRIPTION).first().text();
         String content = element.getElementsByTag(CONTENT).text();
         String createdAt = element.select(CREATED_AT).first().text();
+        String corrDateAndTime="";
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+            SimpleDateFormat df2 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm");
+            corrDateAndTime = df2.format(format.parse(createdAt));
+        }
+        catch (java.text.ParseException e)
+        {
+            e.printStackTrace();
+        }
         String comment = element.getElementsByTag(COMMENT).text();
         String numberOfComments = element.getElementsByTag(NUMBER_OF_COMMENTS).text();
         String img;
@@ -173,7 +184,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         rssItem.setImg(img);
         rssItem.setDescription(description);
         rssItem.setContent(content);
-        rssItem.setCreatedAt(createdAt);
+        rssItem.setCreatedAt(corrDateAndTime);
         rssItem.setCommentUrl(comment);
         rssItem.setNumberOfComments(numberOfComments);
         rssItem.setIsFavourite(false);
