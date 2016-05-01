@@ -12,23 +12,22 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <kz.alisher.samsungnews.utils.RoundedImageView
-        android:id="@+id/imageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/profile" />
+        android:id="@+id/login_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing" />
 
     <TextView
+        android:id="@+id/login_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Jonh Smith"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/login_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="jonh.smith@samsung.com" />
+        android:text="" />
 
 </LinearLayout>

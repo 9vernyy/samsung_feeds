@@ -69,12 +69,12 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
                 if(rssItem.isFavourite()==false){
                     rssItem.setIsFavourite(true);
                     Favourite.faList.add(rssItem);
-                    favourite.setImageDrawable(getResources().getDrawable(R.drawable.star_notfilled));
+                    favourite.setImageDrawable(getResources().getDrawable(R.drawable.starfilled));
                     Toast.makeText(NewsActivity.this, "Favourite", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     rssItem.setIsFavourite(false);
-                    favourite.setImageDrawable(getResources().getDrawable(R.drawable.star_filled));
+                    favourite.setImageDrawable(getResources().getDrawable(R.drawable.starnotfill));
                     Favourite.faList.remove(rssItem);
                     Toast.makeText(NewsActivity.this, "deleted from favourite", Toast.LENGTH_SHORT).show();
                 }

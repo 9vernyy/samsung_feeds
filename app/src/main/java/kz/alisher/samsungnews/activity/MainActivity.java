@@ -19,6 +19,9 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -32,6 +35,7 @@ import kz.alisher.samsungnews.fragment.CategoryFragment;
 import kz.alisher.samsungnews.fragment.FavouriteFragment;
 import kz.alisher.samsungnews.fragment.HomeFragment;
 import kz.alisher.samsungnews.utils.GlobalItems;
+import kz.alisher.samsungnews.utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private SharedPreferences.Editor editor;
+    private SessionManager sessionManager;
 
 
     @Override
@@ -64,6 +69,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor = getPreferences(MODE_PRIVATE).edit();
         editor.putInt("news_count", 0);
         editor.apply();
+        sessionManager = new SessionManager(this);
+
+        if (sessionManager.isLoggedIn()){
+            navigationView.getMenu().findItem(R.id.login).setVisible(false);
+            initProfile();
+
+        } else {
+            navigationView.getMenu().findItem(R.id.favourite).setVisible(false);
+            navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -79,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.categories) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, CategoryFragment.newInstance()).commit();
+        } else if (id == R.id.login){
+            startActivity(new Intent(this, LoginActivity.class));
+        } else if (id == R.id.logout){
+            sessionManager.setLogin(false);
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -91,6 +111,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void initProfile() {
+        View header = navigationView.getHeaderView(0);
+        TextView nameTxt = (TextView) header.findViewById(R.id.login_name);
+        TextView emailTxt = (TextView) header.findViewById(R.id.login_email);
+        ImageView imageView = (ImageView) header.findViewById(R.id.login_image);
+        nameTxt.setText("admin");
+        emailTxt.setText("admin@gmail.com");
+        imageView.setImageResource(R.drawable.profile);
     }
 
     @Override

@@ -83,19 +83,19 @@ public class HomeFragment extends Fragment {
                     case 0:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.green,
-                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                                "http://img.global.news.samsung.com/global/wp-content/uploads/2015/10/SamsungCSR_Abroad_Main_4.jpg");
                     case 1:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.blue,
-                                "https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg");
+                                "http://img.global.news.samsung.com/global/wp-content/uploads/2016/01/Samsung-Galaxy-Studio_Gear-VR-Theater-with-4d_3.jpg");
                     case 2:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.cyan,
-                                "http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg");
+                                "https://img.global.news.samsung.com/global/wp-content/uploads/2016/04/Samsung-Pay_S7-edge_706.jpg");
                     case 3:
                         return HeaderDesign.fromColorResAndUrl(
                                 R.color.red,
-                                "http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg");
+                                "https://img.global.news.samsung.com/global/wp-content/uploads/2016/04/GalaxyS7_Tutorial_Main_0.jpg");
                 }
 
                 //execute others actions if needed (ex : modify your header logo)
