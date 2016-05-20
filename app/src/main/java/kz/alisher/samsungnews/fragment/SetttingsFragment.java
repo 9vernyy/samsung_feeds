@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.text.Html;
 import android.util.Log;
 
 
@@ -20,6 +21,7 @@ public class SetttingsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref1);
         final CheckBoxPreference checkBoxPreference = (CheckBoxPreference)findPreference("chb1");
+        checkBoxPreference.setTitle(Html.fromHtml("<font color='black'>Dark Theme</font>"));
         checkBoxPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -33,16 +35,17 @@ public class SetttingsFragment extends PreferenceFragment {
                 alertDialogBuilder
                         .setMessage("We need restart application")
                         .setCancelable(false)
-                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 Intent i = getActivity().getPackageManager()
-                                        .getLaunchIntentForPackage(getActivity().getPackageName() );
+                                        .getLaunchIntentForPackage(getActivity().getPackageName());
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }
                         })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                checkBoxPreference.setChecked(false);
                                 dialog.cancel();
                             }
                         });

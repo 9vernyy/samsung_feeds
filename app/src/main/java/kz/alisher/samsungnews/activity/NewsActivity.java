@@ -45,7 +45,6 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
         initToolbar();
         getExtras();
 
-
         contentTxt = (TextView) findViewById(R.id.contentNews);
         numberOfCommentsTxt = (TextView) findViewById(R.id.numberOfComments);
         ImageButton comment = (ImageButton) findViewById(R.id.comment);
@@ -83,8 +82,15 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
     }
 
     private void getExtras() {
+        ImageButton favourite = (ImageButton) findViewById(R.id.favourite);
         Intent i = getIntent();
         rssItem = (RssItem) i.getSerializableExtra("item");
+        if(rssItem.isFavourite()){
+            favourite.setImageDrawable(getResources().getDrawable(R.drawable.starfilled));
+        }
+        else{
+            favourite.setImageDrawable(getResources().getDrawable(R.drawable.starnotfill));
+        }
         Log.d("ITEM", rssItem.getContent());
     }
 
@@ -98,7 +104,7 @@ public class NewsActivity extends AppCompatActivity implements Html.ImageGetter 
     @Override
     public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
-        Drawable empty = getResources().getDrawable(R.mipmap.ic_launcher);
+        Drawable empty = getResources().getDrawable(R.mipmap.clock);
         d.addLevel(0, 0, empty);
         d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 

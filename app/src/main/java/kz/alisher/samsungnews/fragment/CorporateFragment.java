@@ -2,7 +2,6 @@ package kz.alisher.samsungnews.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,18 +15,15 @@ import android.widget.Toast;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 
-import org.jsoup.Jsoup;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.activity.NewsActivity;
 import kz.alisher.samsungnews.adapter.NewsRecyclerViewAdapter;
-import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.rssmanager.OnRssLoadListener;
 import kz.alisher.samsungnews.rssmanager.RssItem;
 import kz.alisher.samsungnews.rssmanager.RssReader;
-import kz.alisher.samsungnews.utils.EndlessRecyclerOnScrollListener;
 import kz.alisher.samsungnews.utils.RecyclerItemClickListener;
 
 /**

@@ -59,7 +59,6 @@ public class CategoryFragment extends Fragment {
                 if (catMap.get(position-1).get(0).equals("All")) {
                     Intent i = new Intent(getActivity(), SortActivity.class);
                     i.putExtra("title", catMap.get(position-1).get(0));
-                    Log.d("ALL:123", catMap.get(position).get(0));
                     startActivity(i);
                 } else {
                     Intent i = new Intent(getActivity(), SubCategoryActivity.class);

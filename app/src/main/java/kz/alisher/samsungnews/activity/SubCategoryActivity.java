@@ -35,6 +35,7 @@ public class SubCategoryActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Samsung news");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,9 +52,9 @@ public class SubCategoryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent i = new Intent(SubCategoryActivity.this, SortActivity.class);
-                Log.d("POSITION", catMap.get(position).get(0));
-                i.putExtra("title", catMap.get(position).get(0));
-                Log.d("TESTOVICH", catMap.get(position).get(0));
+                Log.d("POSITION", catMap.get(position-1).get(0));
+                i.putExtra("title", catMap.get(position-1).get(0));
+                Log.d("TESTOVICH", catMap.get(position-1).get(0));
                 startActivity(i);
             }
         }));

@@ -6,19 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kz.alisher.samsungnews.R;
-import kz.alisher.samsungnews.adapter.CategoryAdapter;
 import kz.alisher.samsungnews.adapter.NewsRecyclerViewAdapter;
 import kz.alisher.samsungnews.rssmanager.OnRssLoadListener;
 import kz.alisher.samsungnews.rssmanager.RssItem;
@@ -40,7 +37,7 @@ public class SortActivity extends AppCompatActivity implements OnRssLoadListener
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Samsung news");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String title = getIntent().getStringExtra("title");

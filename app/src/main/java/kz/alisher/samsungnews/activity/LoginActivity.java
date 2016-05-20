@@ -1,6 +1,5 @@
 package kz.alisher.samsungnews.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                     MainActivity.class);
             startActivity(intent);
             finish();
+            hideDialog();
+        } else {
+            Toast.makeText(this, "Credentials invalid", Toast.LENGTH_SHORT).show();
             hideDialog();
         }
     }

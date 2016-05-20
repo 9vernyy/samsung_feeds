@@ -18,9 +18,9 @@ import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapte
 import java.util.ArrayList;
 import java.util.List;
 
+import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.activity.NewsActivity;
 import kz.alisher.samsungnews.adapter.NewsRecyclerViewAdapter;
-import kz.alisher.samsungnews.R;
 import kz.alisher.samsungnews.rssmanager.OnRssLoadListener;
 import kz.alisher.samsungnews.rssmanager.RssItem;
 import kz.alisher.samsungnews.rssmanager.RssReader;

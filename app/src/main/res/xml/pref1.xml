@@ -4,6 +4,8 @@
     <CheckBoxPreference
         android:key="chb1"
         android:summary="@string/checkbox1_summary"
-        android:title="@string/checkbox1_title">
+        android:title="@string/checkbox1_title"
+        android:textColor="#000"
+        android:textColorHint="#000">
     </CheckBoxPreference>
 </PreferenceScreen>

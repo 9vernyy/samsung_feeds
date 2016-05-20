@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
@@ -129,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView nameTxt = (TextView) header.findViewById(R.id.login_name);
         TextView emailTxt = (TextView) header.findViewById(R.id.login_email);
         ImageView imageView = (ImageView) header.findViewById(R.id.login_image);
-        nameTxt.setText("admin");
-        emailTxt.setText("admin@gmail.com");
+        nameTxt.setText("Jonh Smith");
+        emailTxt.setText("jonh.smith@gmail.com");
         imageView.setImageResource(R.drawable.profile);
     }
 
@@ -145,33 +147,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getPushNotification() {
-//        final ArrayList<String> testStrings = new ArrayList<>();
-//        testStrings.add("First");
-//        testStrings.add("Second");
+       /* final ArrayList<String> testStrings = new ArrayList<>();
+        testStrings.add("First");
+        testStrings.add("Second");*/
 
         Timer myTimer = new Timer();
         final Intent intent = new Intent(this, MainActivity.class);
         myTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-//                SharedPreferences prefs = getPreferences(MODE_PRIVATE);
-//                int old = prefs.getInt("news_count", testStrings.size());
-//                if (old == 0){
-//                    editor.putInt("news_count", testStrings.size());
-//                    editor.apply();
-//                    old = testStrings.size();
-//                }
-//                Log.d("TEST", "------------------------");
-//                Log.d("TEST OLD", old+"");
-//                Log.d("TEST SIZE", testStrings.size()+"");
-//                if (testStrings.size() > old) {
-//                    Log.d("TEST TRUE", testStrings.size()+"");
-//                    showNotificationMessage(testStrings.get(testStrings.size() - 1), testStrings.get(testStrings.size() - 1), intent);
-//                    editor.putInt("news_count", testStrings.size());
-//                    editor.apply();
-//                }
-//                Log.d("TEST FALSE", testStrings.size()+"");
-//                testStrings.add("THIRD");
+                /*SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+                int old = prefs.getInt("news_count", testStrings.size());
+                if (old == 0){
+                    editor.putInt("news_count", testStrings.size());
+                    editor.apply();
+                    old = testStrings.size();
+                }
+                Log.d("TEST", "------------------------");
+                Log.d("TEST OLD", old+"");
+                Log.d("TEST SIZE", testStrings.size()+"");
+                if (testStrings.size() > old) {
+                    Log.d("TEST TRUE", testStrings.size()+"");
+                    showNotificationMessage(testStrings.get(testStrings.size() - 1), testStrings.get(testStrings.size() - 1), intent);
+                    editor.putInt("news_count", testStrings.size());
+                    editor.apply();
+                }
+                Log.d("TEST FALSE", testStrings.size() + "");
+                testStrings.add("THIRD");*/
                 try {
                     Elements items = new GlobalItems().execute().get();
                     SharedPreferences prefs = getPreferences(MODE_PRIVATE);
@@ -203,8 +205,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showNotificationMessage(String title, String message, Intent intent) {
-        int icon = R.drawable.star_notfilled;
-        int smallIcon = R.drawable.star_filled;
+        int icon = R.drawable.starfilled;
+        int smallIcon = R.drawable.starnotfill;
         int mNotificationId = 1;
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
